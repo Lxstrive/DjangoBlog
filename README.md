@@ -9,7 +9,10 @@ python 2.7
     导入 blogmysql.sql文件
     可以通过 navicat数据库可视化工具 导入sql文件
 
-3. 安装依赖包 pip install django-pure-pagination==0.3.0 
+3. 安装依赖包 pip install django-pure-pagination ;
+
+
+
              pip install pillow
     
 4. pip install MySQL-python 已经有了 可以忽略这条
