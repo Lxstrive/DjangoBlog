@@ -1,0 +1,43 @@
+{% extends 'users_lg/user_base.html' %}
+{% block title %}登录表单{% endblock %}
+{% block body %}
+<body>
+
+	<h1>注册</h1>
+
+	<div class="container w3layouts agileits">
+
+		<div class="login w3layouts agileits">
+			<!--登录开始-->
+			<h2>注 册</h2>
+			<form action="{% url 'register' %}" method="post">
+				<input type="text" name="username" placeholder="用户名" required="">
+				<input type="text" name="email" placeholder="邮箱" required="">
+                {{ register_form.email.errors }}
+                <input type="password" name="password" placeholder="密码" required="">
+                {{ register_form.password.errors }}
+                <input type="text" name="mobile" placeholder="手机号码" required="">
+                {{ register_form.mobile.errors }}
+                <div class="send-button w3layouts agileits">
+                <input type="submit" value="注 册">
+                </div>
+                 <div class="send-button w3layouts agileits">
+                     <p style="color: #FFFFFF">{{ msg }}</p>
+                </div>
+                {% csrf_token %}
+			</form>
+            <a href="{% url 'index' %}">回到首页</a>
+			</div>
+			<div class="clear"></div>
+		</div><div class="copyrights">Collect from <a href="#" ></a></div>
+		
+		<!--登录结束-->
+
+
+	<div class="footer w3layouts agileits">
+		<p>这里添加版权信息 ：京CP：X.xxxxxxxx <a href="#" target="_blank" title="">这里也可以</a> 超链接 <a href="#" title="网页模板" target="_blank">超链接</a></p>
+	</div>
+
+</body>
+{% endblock %}
+

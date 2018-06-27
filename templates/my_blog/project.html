@@ -1,0 +1,30 @@
+{% extends 'my_blog/index.html' %}
+{% load staticfiles %}
+{% block custom_css %}
+    <link href="{% static 'my_blog/css/about.css' %}" rel="stylesheet">
+    <link href="{% static 'my_blog/css/index.css' %}" rel="stylesheet">
+
+{% endblock %}
+{% block title %}
+    X.xx阅读人生
+{% endblock %}
+{% block coutent %}
+     <article>
+     {% block bread %}
+    <h3 class="about_h">您现在的位置是：<a href="{% url 'index' %}">首页</a>><a href="{% url 'index:project' %}">阅读人生</a><a href="#">文章详情</a></h3>
+     {% endblock %}
+    <div class="about">
+      <h2>{{ all_reads.title }}</h2>
+      <ul>
+          {{ all_reads.content }}
+      </ul>
+     <h2>{{ all_reads.add_time }}</h2>
+
+    </div>
+  </article>
+{% endblock %}
+
+{% block news %}
+{% endblock %}
+
+

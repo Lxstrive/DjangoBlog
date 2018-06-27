@@ -1,0 +1,48 @@
+
+{% load staticfiles %}
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{% block title %}X.xx播客首页{% endblock %}</title>
+<meta name="keywords" content="小熙个人博客" />
+<meta name="description" content="小熙个人博客，神秘、俏皮。" />
+<link href="{% static 'my_blog/css/base.css' %}" rel="stylesheet">
+<link href="{% static 'my_blog/css/media.css' %}" rel="stylesheet">
+<link href="{% static 'my_blog/css/style.css' %}" rel="stylesheet">
+{% block custom_css %}
+{% endblock %}
+{% block custom_js %}
+{% endblock %}
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+  <header>
+    <h1>小熙_Strive</h1>
+    <h2>平凡生活，英雄梦想。做努力爬的蜗牛或坚持飞的笨鸟。总有一天，你会站在最亮的地方，活成你自己曾经渴望的模样。..</h2>
+
+    <div class="logo"><a href="/"></a></div>
+    {% block nav %}
+        {% if request.user.is_authenticated %}
+            <nav id="topnav"><a href="{% url 'index' %}">首页</a><a href="{% url 'index:about' %}">关于我</a><a href="{% url 'index:project' %}">阅读人生</a><a href="{% url 'index:template' %}">个人作品</a><a href="{% url 'logout' %}">退出</a></nav>
+           {% else %}
+            <nav id="topnav"><a href="{% url 'index' %}">首页</a><a href="{% url 'index:about' %}">关于我</a><a href="{% url 'index:project' %}">阅读人生</a><a href="{% url 'index:template' %}">个人作品</a><a href="{% url 'login' %}">登录</a><a href="{% url 'register' %}">注册</a></nav>
+        {% endif %}
+    {% endblock %}
+
+  </header>
+    {% block coutent %}
+            {% block bread %}
+            {% endblock %}
+    {% endblock %}
+{% block right_coutent %}
+
+{% endblock %}
+  <script src="{% static 'my_blog/js/silder.js' %}"></script>
+  <div class="clear"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'my_blog/index.html' %}
+{% load staticfiles %}
+{% block title %}
+    X.xx个人作品
+{% endblock %}
+{% block coutent %}
+<article>
+    <h2 class="about_h">您现在的位置是：<a href="#">首页</a>><a href="#">个人作品</a></h2>
+    <div class="template">
+      <h3>
+        <p><span>个人博客</span>展示</p>
+        <a href="#" class="more">>></a> </h3>
+      <ul>
+        <li><a href="#"><img src="{% static 'my_blog/images/1.jpg' %}"></a><span>向往的旅游胜地--终有一天</span></li>
+        <li><a href="#"><img src="{% static 'my_blog/images/2.jpg' %}"></a><span>向往的旅游胜地--终有一天</span></li>
+        <li><a href="#"><img src="{% static 'my_blog/images/3.jpg' %}"></a><span>向往的旅游胜地--终有一天</span></li>
+        <li><a href="#"><img src="{% static 'my_blog/images/4.jpg' %}"></a><span>向往的旅游胜地--终有一天</span></li>
+      </ul>
+      <h3>
+        <p><span>向往</span>星空</p>
+        <a href="#" class="more">>></a> </h3>
+      <ul>
+        <li><a href="#"  ><img src="{% static 'my_blog/images/6.jpg' %}"></a><span>LianXi绿色小清新的夏天-个人博客</span></li>
+        <li><a href="#" ><img src="{% static 'my_blog/images/7.jpg' %}"></a><span>LianXi绿色小清新的夏天-个人博客</span></li>
+        <li><a href="#"  ><img src="{% static 'my_blog/images/8.jpg' %}"></a><span>LianXi绿色小清新的夏天-个人博客</span></li>
+        <li><a href="#" ><img src="{% static 'my_blog/images/9.jpg' %}"></a><span>LianXi绿色小清新的夏天-个人博客</span></li>
+      </ul>
+      <h3>
+        <p>个人<span>喜欢的</span></p>
+        <a href="#" class="more">>></a> </h3>
+      <ul>
+        <li><a href="#"  ><img src="{% static 'my_blog/images/10.jpg' %}"></a><span>喜洋洋-灰太狼-小阿狸</span></li>
+        <li><a href="#" ><img src="{% static 'my_blog/images/14.jpg' %}"></a><span>喜洋洋-灰太狼-小阿狸</span></li>
+        <li><a href="#"  ><img src="{% static 'my_blog/images/12.jpg' %}"></a><span>喜洋洋-灰太狼-小阿狸</span></li>
+        <li><a href="#" ><img src="{% static 'my_blog/images/13.jpg' %}"></a><span>喜洋洋-灰太狼-小阿狸</span></li>
+      </ul>
+      
+    </div>
+  </article>
+
+{% endblock %}
+
+{% block right %}
+{% endblock %}
+
+

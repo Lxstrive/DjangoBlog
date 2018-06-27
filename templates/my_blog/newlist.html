@@ -1,0 +1,78 @@
+
+{% extends 'my_blog/base_blog.html' %}
+{% load staticfiles %}
+{% block coutent %}
+     <article>
+    <h2 class="about_h">您现在的位置是：<a href="/">首页</a>><a href="#">阅读人生</a></h2>
+    <div class="bloglist">
+    {% for read in all_read.object_list %}
+      <div class="newblog">
+        <ul>
+          <h3><a href="{% url 'index:project_detail' read.id %}">{{ read.title }}</a></h3>
+          <div class="autor"><span>作者：{{ read.author }}</span><span>分类：[<a href="/">{{ read.get_classify_display }}</a>]</span><span>浏览（<a href="/">{{ read.click_num }}</a>）</span></div>
+          <p>{{ read.content|slice:'100' }}<a href="{% url 'index:project_detail' read.id %}" target="_self" class="readmore">全文</a></p>
+        </ul>
+        <figure><img src="{{ MEDIA_URL }}{{ read.image }}" ></figure>
+        <div class="dateview">{{ read.add_time|slice:'1' }}</div>
+      </div>
+
+    {% endfor %}
+    </div>
+     <div class="page">
+
+            {% if all_read.has_previous %}
+                <a href="?{{ all_read.previous_page_number.querystring }}">上</a>
+            {% endif %}
+
+            {% for page in all_read.pages %}
+                {% if page %}
+                    {% ifequal page all_read.number %}
+                        <a href="?{{ page.querystring }}">{{ page }}</a>
+                    {% else %}
+                       <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                    {% endifequal %}
+
+                {% endif %}
+            {% endfor %}
+            {% if all_read.has_next %}
+                <a href="?{{ all_read.next_page_number.querystring }}">下</a>
+            {% endif %}
+        </div>
+  </article>
+{% endblock %}
+{% block right_coutent %}
+    <aside>
+    <div class="rnav">
+      <li class="rnav1 "><a href="?ct=">全部</a></li>
+    <li class="rnav1 "><a href="?ct=rj">日记</a></li>
+      <li class="rnav2 "><a href="?ct=xs">欣赏</a></li>
+      <li class="rnav3 "><a href="?ct=cx">程序人生</a></li>
+      <li class="rnav4 "><a href="?ct=jd">经典语录</a></li>
+    </div>
+    <div class="ph_news">
+      <h2>
+        <p>点击排行</p>
+      </h2>
+      <ul class="ph_n">
+          {% for read in click_read %}
+              <li><span class="num1">{{ forloop.counter }}</span><a href="{% url 'index:project_detail' read.id %}">{{ read.title }}</a></li>
+
+          {% endfor %}
+
+      </ul>
+      <h2>
+        <p>栏目推荐</p>
+      </h2>
+      <ul>
+      {% for i in click_read %}
+        <li><a href="#">{{ i.title }}</a></li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+  </aside>
+{% endblock %}
+
+
+

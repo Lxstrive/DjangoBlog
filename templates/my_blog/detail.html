@@ -1,0 +1,148 @@
+{% extends 'my_blog/index.html' %}
+{% load staticfiles %}
+{% block custom_css %}
+
+    <link href="{% static 'my_blog/css/about.css' %}" rel="stylesheet">
+    <link href="{% static 'my_blog/css/index.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/learn-less.css' %}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/course-comment.css' %}"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'my_blog/css/style.css' %}"/>
+    <style>
+        .test {width: 30px; height: 30px; float: left; margin: 20px 10px}
+        .test img {width: 40px; height: 40px; }
+    </style>
+{% endblock %}
+
+
+{% block nav %}
+
+    <nav id="topnav"><a href="{% url 'index' %}">回到首页</a> </nav>
+{% endblock %}
+{% block coutent %}
+    <article>
+        {% block bread %}
+            <h3 class="about_h">您现在的位置是：<a href="{% url 'index' %}">首页</a>><a href="#">文章详情</a></h3>
+        {% endblock %}
+        <div class="about">
+            <h2>{{ articles.title }}</h2>
+            <p>{{ articles.content }}</p>
+            <div id="main">
+            <div class="content-wrap clearfix">
+            <div class="content">
+                <div class="mod-tab-menu">
+                    <ul class="course-menu clearfix">
+
+                        <li><span
+                                style="color: #e41635; font-size:20px ">评论</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--发布评论-->
+
+                <div id="js-pub-container"
+                     class="issques clearfix js-form">
+                    <form method="post" action="{% url 'index:add_comment' articles.id %}">
+                        <div class="wgt-ipt-wrap pub-editor-wrap " id="js-pl-input-fake">
+                            <textarea id="js-pl-textarea" name="comments" placeholder="表扬、鼓励……想说啥就说啥！"></textarea>
+                        </div>
+                        <input type="submit" id="submit"  class="pub-btn" data-cid="452"  value="发表评论">
+                        <p class="global-errortip js-global-error"></p>
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <div id="course_note">
+                <ul class="mod-post" id="comment-list">
+                {% for all_comment in all_comments.object_list %}
+                    <li class="post-row">
+                    <div class="media">
+                        <span target="_blank"><img  src='{{ MEDIA_URL }}{{ all_comment.user.image }}'width='40'  height='40'/></span>
+                    </div>
+                    <div class="bd">
+                    <div class="tit">
+                    <span target="_blank"
+                      {% if all_comment.user.nick_name == '小熙' %}style="color: #e41635; font-size: 20px; font-weight: bold; font-family: 楷体; font-style:italic"{% endif %}>{{ all_comment.user.nick_name }}</span>
+                    </div>
+                    <p class="cnt"
+                       {% if all_comment.user.username == 'lianxi' %}style="color: #e41635; font-size: 15px; font-weight: bold;  font-style:italic"{% endif %}>{{ all_comment.comments }}</p>
+                    <div class="footer clearfix">
+                        <span title="创建时间"  class="l timeago">时间：{{ all_comment.add_time }}</span>
+                    </div>
+                    </div>
+                    </li>
+                {% endfor %}
+                </ul>
+                </div>
+            <div class="page">
+
+                {% if all_comments.has_previous %}
+                    <a href="?{{ all_comments.previous_page_number.querystring }}">上</a>
+                {% endif %}
+
+                {% for page in all_comments.pages %}
+                    {% if page %}
+                        {% ifequal page all_comments.number %}
+                            <a href="?{{ page.querystring }}">{{ page }}</a>
+                        {% else %}
+                           <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                        {% endifequal %}
+
+                    {% endif %}
+                {% endfor %}
+                {% if all_comments.has_next %}
+                    <a href="?{{ all_comments.next_page_number.querystring }}">下</a>
+                {% endif %}
+            </div>
+            </div>
+            </div>
+
+            <div class="clear"></div>
+            </div>
+        </div>
+
+    </article>
+
+{% endblock %}
+
+{% block news %}
+    <div class="ph_news">
+       <h2>
+        <p>最新评论</p>
+      </h2>
+      <ul class="pl_n">
+          {% for new_comment in new_comments %}
+            <dl>
+          <dt><img src="{{ MEDIA_URL }}{{ new_comment.user.image }}"> </dt>
+
+          <dd>{{ new_comment.user.nick_name }}
+            <time>{{ new_comment.add_time|timesince }} 前</time>
+          </dd>
+
+          <dd><a href="/">{{ new_comment.comments }}</a></dd>
+        </dl>
+          {% endfor %}
+      </ul>
+      <h2>
+        <p>最近访客</p>
+       </h2>
+        {% for user_img in all_user %}
+         {% if user_img.username != 'lianxi' %}
+        <div class="test">
+
+                <img src="{{ MEDIA_URL }}{{ user_img.image }}">
+
+        </div>
+         {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+

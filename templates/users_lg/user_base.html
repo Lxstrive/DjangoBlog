@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<!-- Head -->
+<head>
+
+	<title>{% block title %}注册表单{% endblock %}</title>
+
+        {% block custom_js %}{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ 		<link rel="stylesheet" href="{% static 'users_lg/css/style.css' %}" type="text/css" media="all">
+        <link rel="stylesheet" href="{% static 'users_lg/css/error.css' %}" type="text/css" media="all">
+
+        {% block custom_css %}
+        {% endblock %}
+
+
+</head>
+<!-- //Head -->
+{% block body %}
+
+{% endblock %}
+
+</html>

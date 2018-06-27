@@ -1,0 +1,117 @@
+{% extends 'my_blog/base_blog.html' %}
+{% load staticfiles %}
+{% block custom_css %}
+    <link href="{% static 'my_blog/css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'my_blog/css/style.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block coutent %}
+    <article>
+    <div class="banner">
+      <ul class="texts">
+        <p style="color:#e41635; font-weight: bold">人总爱跟别人比较，看看有谁比自己好，又有谁比不上自己。 </p>
+        <p style="color: #ffffff; font-weight: bold">而其实，为你的烦恼和忧伤垫底的，从来不是别人的不幸和痛苦，而是你自己的态度。</p>
+      </ul>
+    </div>
+    <div class="bloglist">
+
+      <h2>
+        {#根据标签分类#}
+        <p><span><a href="?ct=">全部|</a></span><a href="?ct=bk">播客|</a><a href="?ct=rj">日记|</a><a href="?ct=xd">心得</a> </p>
+      </h2>
+
+        <h2>
+        {#根据标签分类#}
+         <p><span>共  </span>{{ article_num }}  <span>篇文章</span> </p>
+        </h2>
+        {% for article_index in articles_index.object_list %}
+        <div class="blogs">
+            <h3><a href="/blog/detail/{{ article_index.id }}/">{{ article_index.title }}</a></h3>
+            <figure><a href="{{ article_index.url }}"> <img src="{{ MEDIA_URL }}{{ article_index.image }}" ></a></figure>
+            <ul>
+
+                <p>{{ article_index.content|slice:'150' }}</p>
+              <a href="/blog/detail/{{ article_index.id }}/" target="_self" class="readmore">阅读全文&gt;&gt;</a>
+            </ul>
+            <p class="autor"><span>作者：{{ article_index.name.nick_name }}</span><span>分类：【<a href="/">{{ article_index.get_classify_display }}</a>】</span><span>浏览（<a href="#">{{ article_index.click_num }}</a>）</span></p>
+            <div class="dateview">{{ article_index.add_time | center:'1'}}</div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+    <div class="page">
+
+            {% if articles_index.has_previous %}
+                <a href="?{{ articles_index.previous_page_number.querystring }}">上</a>
+            {% endif %}
+
+            {% for page in articles_index.pages %}
+                {% if page %}
+                    {% ifequal page articles_index.number %}
+                        <a href="?{{ page.querystring }}">{{ page }}</a>
+                    {% else %}
+                       <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                    {% endifequal %}
+
+                {% endif %}
+            {% endfor %}
+            {% if articles_index.has_next %}
+                <a href="?{{ articles_index.next_page_number.querystring }}">下</a>
+            {% endif %}
+
+
+
+    </div>
+  </article>
+{% endblock %}
+{% block right_coutent %}
+      <aside>
+    <div class="avatar"><a href="{% url 'users:user_info' %}" style="background: url('{{ MEDIA_URL }}{{ request.user.image }}') no-repeat; background-size: 160px 160px; "><span>修改资料</span></a></div>
+    <div class="topspaceinfo">
+      <h1>坚持最难，但成果也最大</h1>
+      <p>不论你在什么时候开始，重要的是开始之后就不要停止....</p>
+    </div>
+    <div class="about_c">
+      <p>网名：{{ request.user.nick_name }}</p>
+      <p>职业：{{ request.user.profession }} </p>
+      <p>籍贯：{{ request.user.address }}</p>
+      <p>电话：{{ request.user.mobile }}</p>
+      <p>邮箱：{{ request.user.email }}</p>
+    </div>
+   {% block news %}
+    <div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
+    {% block right %}
+    <div class="tj_news">
+
+      <h2>
+        <p class="tj_t1">最新文章</p>
+      </h2>
+      <ul>
+
+          {% for article_new in article_news  %}
+              <li><a href="/blog/detail/{{ article_new.id }}">{{ article_new }}</a></li>
+          {% endfor %}
+
+
+      </ul>
+      <h2>
+        <p class="tj_t2">推荐文章</p>
+      </h2>
+      <ul>
+
+          {% for article_click in article_clicks  %}
+                <li><a href="/blog/detail/{{ article_click.id }}/">{{ article_click.title }}</a></li>
+          {% endfor %}
+
+      </ul>
+    </div>
+     {% endblock %}
+  {% endblock %}
+    <div class="links">
+
+    </div>
+
+  </aside>
+{% endblock %}
